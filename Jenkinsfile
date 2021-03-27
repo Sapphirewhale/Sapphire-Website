@@ -14,7 +14,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling react app'
-                sh 'sudo ./jenkins/scripts/deliver.sh'
+                sh './jenkins/scripts/deliver.sh'
             }
         }
         stage('Security Check') {
