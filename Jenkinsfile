@@ -8,7 +8,10 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                echo 'Compile the source code' 
+                echo 'Compiling react app'
+                cd sapphire-website
+                npm install -g serve
+                serve -s build -l 4000
             }
         }
         stage('Security Check') {
