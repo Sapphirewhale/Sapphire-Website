@@ -6,9 +6,10 @@ pipeline {
         }
     }
     stages {
-        stage('Static Analysis') {
+        stage('Setup') {
             steps {
-                echo 'Run the static analysis to the code' 
+                echo 'Giving Jenkins Permissions'
+                sh "chmod +x -R ${env.WORKSPACE}" 
             }
         }
         stage('Compile') {
