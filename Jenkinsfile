@@ -2,7 +2,7 @@ pipeline {
     agent
          docker {
             image 'node:6-alpine' 
-            args '-p 3000:3000' 
+            args '-p 4000:4000' 
         }
     stages {
         stage('Static Analysis') {
@@ -13,9 +13,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling react app'
-                cd sapphire-website
-                npm install -g serve
-                serve -s build -l 4000
+                sh './jenkins/scripts/deliver.sh'
             }
         }
         stage('Security Check') {
