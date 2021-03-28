@@ -10,6 +10,7 @@ pipeline {
             steps {
                 echo 'Giving Jenkins Permissions'
                 sh "chmod +x -R ${env.WORKSPACE}" 
+                sh "sudo chown -R ${env.WORKSPACE} ~/.npm"
             }
         }
         stage('Compile') {
