@@ -18,14 +18,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling react app'
-                echo 'Changing directories'
-                sh 'cd sapphire-website'
-
-                echo 'Installing the app'
-                sh 'npm install --unsafe-perm=true --allow-root'
-
-                echo 'Building the app'
-                sh 'npm run build --unsafe-perm=true --allow-root'
+                sh './jenkins/scripts/deliver.sh'
             }
         }
         stage('Security Check') {
