@@ -15,39 +15,27 @@ pipeline {
                 sh "chmod +x -R ${env.WORKSPACE}" 
             }
         }
-        stage('Compile') {
+        stage('Compile & Build React App') {
             steps {
-                echo 'Compiling react app'
-                echo 'Changing directories'
                 dir("sapphire-website"){
-                    echo 'Installing the app'
+                    echo 'Compiling...'
                     sh "npm install --unsafe-perm=true --allow-root"
 
-                    echo 'Building the app'
+                    echo 'Building...'
                     sh "npm run build --unsafe-perm=true --allow-root"
-
-                    echo 'Serving the app on port 4000'
-                    sh "chmod +x -R /usr/local/lib/node_modules"
+                }
+            }
+        }
+        stage('Serve the React App') {
+            steps {
+                dir("sapphire-website"){
+                    echo 'Serving the app on port 4000...'
                     sh "npm install -g serve"
                     sh "serve -s build -l 4000"
                 }
             }
         }
-        stage('Security Check') {
-            steps {
-                echo 'Run security check against the application' 
-            }
-        }
-        stage('Run Unit Tests') {
-            steps {
-                echo 'Run unit tests from the source code' 
-            }
-        }
-        stage('Run Integration Tests') {
-            steps {
-                echo 'Run only crucial integration tests from the source code' 
-            }
-        }
+
         stage('Publish Artifacts') {
             steps {
                 echo 'Save the assemblies generated from the compilation' 
