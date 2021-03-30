@@ -30,8 +30,7 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Serving the app on port 4000...'
-                    sh "npm install serve"
-                    sh "serve -s build -l 4000"
+                    sh "npm start"
                 }
             }
         }
