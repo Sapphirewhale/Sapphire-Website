@@ -21,7 +21,7 @@ pipeline {
                 echo 'Changing directories'
                 dir("sapphire-website"){
                     echo 'Installing the app'
-                    sh npm "install --unsafe-perm=true --allow-root"
+                    sh "npm install --unsafe-perm=true --allow-root"
 
                     echo 'Building the app'
                     sh "npm run build --unsafe-perm=true --allow-root"
