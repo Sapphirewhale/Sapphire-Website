@@ -1,18 +1,18 @@
 pipeline {
-    environment {
-        CACHE_DIR = "/var/nm_cache/sapphire-website/"
-    }
     agent {
         docker {
             image 'node:10-alpine' 
             args '-v deploy:/var/www/'
         }
     }
+    environment {
+        npm_config_cache = 'npm-cache'
+    }
     stages {
         stage('Setup') {
             steps {
                 echo 'Giving Jenkins Permissions'
-                sh "chmod +x -R ${env.WORKSPACE}"
+                sh "chmod +x -R ${env.WORKSPACE}" 
             }
         }
         stage('Compile & Build React App') {
@@ -20,7 +20,6 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Compiling...'
                     sh "npm install --unsafe-perm=true --allow-root"
-
                     echo 'Building...'
                     sh "npm run build --unsafe-perm=true --allow-root"
                 }
@@ -35,7 +34,6 @@ pipeline {
                 }
             }
         }
-
         stage('Publish Artifacts') {
             steps {
                 echo 'Save the assemblies generated from the compilation' 
