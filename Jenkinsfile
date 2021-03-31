@@ -12,21 +12,7 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Giving Jenkins Permissions'
-                sh "chmod +x -R ${env.WORKSPACE}" 
-
-                 sh '''
-                    ls -al
-                    cache_dir="${CACHE_DIR}"
-                    cache_nm="${CACHE_DIR}node_modules"
-                    cache_lock="${CACHE_DIR}yarn.lock"
-
-                    if [ ! -d "$cache_dir" ]; then mkdir ${cache_dir}; fi
-                    if [ ! -d "$cache_nm" ]; then mkdir ${cache_nm}; fi
-                    if [ -d "$cache_nm" ]; then ln -sf ${cache_nm} ./; fi
-                    if [ -f "$cache_lock" ]; then mv -n ${cache_lock} .; fi
-
-                    ls -al
-                    '''
+                sh "chmod +x -R ${env.WORKSPACE}"
             }
         }
         stage('Compile & Build React App') {
