@@ -3,10 +3,8 @@ pipeline {
         CACHE_DIR = "/var/nm_cache/sapphire-website/"
     }
     agent {
-        dockerfile {
-            dir './sapphire-website/Dockerfile'
-            label 'React Builder'
-            additionalBuildArgs  '--build-arg version=1.0'
+        docker {
+            image 'node:10-alpine' 
             args '-v deploy:/var/www/'
         }
     }
