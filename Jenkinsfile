@@ -1,12 +1,13 @@
 pipeline {
     environment {
         CACHE_DIR = "/var/nm_cache/sapphire-website/"
-        APACHE_DIR = "/var/www/html/"
     }
     agent {
-        docker {
-            image 'node:10-alpine' 
-            args '-p 3000:3000' 
+        dockerfile {
+            dir './sapphire-website/Dockerfile'
+            label 'React Builder'
+            additionalBuildArgs  '--build-arg version=1.0'
+            args '-v deploy:/var/www/'
         }
     }
     environment {
@@ -48,7 +49,8 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
-                    sh "npm start"
+                    sh "rename build html"
+                    sh "cp html /var/www/"
                 }
             }
         }
