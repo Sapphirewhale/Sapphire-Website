@@ -29,9 +29,8 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
-                    sh "mv build html"
                     sh "chmod +x -R /var/www/" 
-                    sh "cp -r html /var/www/"
+                    sh "cp -r build/* /var/www/html"
                 }
             }
         }
