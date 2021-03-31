@@ -29,7 +29,7 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
-                    sh "rename build html"
+                    sh "mv build html"
                     sh "cp html /var/www/"
                 }
             }
