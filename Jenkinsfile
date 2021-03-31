@@ -29,7 +29,7 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
-                    sh "chmod +x -R /var/www/" 
+                    //sh "chmod +x -R /var/www/" 
                     sh "cp -r build/* /var/www/html"
                 }
             }
