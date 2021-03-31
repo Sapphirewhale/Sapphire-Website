@@ -10,9 +10,6 @@ pipeline {
             args '-v deploy:/var/www/'
         }
     }
-    environment {
-        npm_config_cache = 'npm-cache'
-    }
     stages {
         stage('Setup') {
             steps {
