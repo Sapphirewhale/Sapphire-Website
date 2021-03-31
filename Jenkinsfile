@@ -19,7 +19,6 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Compiling...'
-                    sh 'chown -R 129:135 "/.npm"'
                     sh "npm install --unsafe-perm=true --allow-root"
 
                     echo 'Building...'
