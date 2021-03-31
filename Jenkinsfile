@@ -1,8 +1,12 @@
 pipeline {
+    environment {
+        CACHE_DIR = "/var/nm_cache/sapphire-website/"
+        APACHE_DIR = "/var/www/html/"
+    }
     agent {
         docker {
             image 'node:10-alpine' 
-            args '-p 4000:4000' 
+            args '-p 3000:3000' 
         }
     }
     environment {
@@ -13,6 +17,20 @@ pipeline {
             steps {
                 echo 'Giving Jenkins Permissions'
                 sh "chmod +x -R ${env.WORKSPACE}" 
+
+                 sh '''
+                    ls -al
+                    cache_dir="${CACHE_DIR}"
+                    cache_nm="${CACHE_DIR}node_modules"
+                    cache_lock="${CACHE_DIR}yarn.lock"
+
+                    if [ ! -d "$cache_dir" ]; then mkdir ${cache_dir}; fi
+                    if [ ! -d "$cache_nm" ]; then mkdir ${cache_nm}; fi
+                    if [ -d "$cache_nm" ]; then ln -sf ${cache_nm} ./; fi
+                    if [ -f "$cache_lock" ]; then mv -n ${cache_lock} .; fi
+
+                    ls -al
+                    '''
             }
         }
         stage('Compile & Build React App') {
@@ -29,7 +47,7 @@ pipeline {
         stage('Serve the React App') {
             steps {
                 dir("sapphire-website"){
-                    echo 'Serving the app on port 4000...'
+                    echo 'Copying the app to apache directory'
                     sh "npm start"
                 }
             }
