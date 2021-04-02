@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:10-alpine' 
-            args '-v deploy:/var/www/'
+            args '-v deploy:/var/www/html'
         }
     }
     environment {
