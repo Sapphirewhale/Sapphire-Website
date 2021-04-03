@@ -13,6 +13,7 @@ pipeline {
             steps {
                 echo 'Giving Jenkins Permissions'
                 sh "chmod +x -R ${env.WORKSPACE}" 
+                sh "whoami"
             }
         }
         stage('Compile & Build React App') {
