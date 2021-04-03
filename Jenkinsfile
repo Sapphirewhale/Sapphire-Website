@@ -7,7 +7,7 @@ pipeline {
     environment {
         npm_config_cache = 'npm-cache'
         SERVER_CREDENTIALSID = "sapphire-server"
-        Path = "${Path};"
+        Path = "${Path};usr/bin"
     }
     stages {
         stage('Setup') {
@@ -31,7 +31,6 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
-                    sh "which ssh-agent"
                     sshagent(["${SERVER_CREDENTIALSID}"]) {
                       sh "scp -o StrictHostKeyChecking=no -r build/* sapphirewhale@10.0.0.6:/var/www/html/"
                     }
