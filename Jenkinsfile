@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'node:10-alpine' 
-            args '-v deploy:/var/www/html'
         }
     }
     environment {
@@ -30,7 +29,7 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
-                    sh "cp -r build/* /var/www/html"
+                    sh "scp -r build/* sapphirewhale@10.0.0.6:/var/www/html/"
                 }
             }
         }
