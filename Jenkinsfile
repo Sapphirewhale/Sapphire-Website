@@ -13,7 +13,6 @@ pipeline {
             steps {
                 echo 'Giving Jenkins Permissions'
                 sh "chmod +x -R ${env.WORKSPACE}" 
-                sh "whoami"
             }
         }
         stage('Compile & Build React App') {
@@ -31,7 +30,7 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
-                    sh "sudo cp -r build/* /var/www/html"
+                    sh "cp -r build/* /var/www/html"
                 }
             }
         }
