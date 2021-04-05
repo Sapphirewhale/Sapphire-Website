@@ -13,16 +13,16 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Giving Jenkins Permissions'
-                sh "chmod +x -R ${env.WORKSPACE}" 
+                //sh "chmod +x -R ${env.WORKSPACE}" 
             }
         }
         stage('Compile & Build React App') {
             steps {
                 dir("sapphire-website"){
                     echo 'Compiling...'
-                    sh "npm install --unsafe-perm=true --allow-root"
+                    //sh "npm install --unsafe-perm=true --allow-root"
                     echo 'Building...'
-                    sh "npm run build --unsafe-perm=true --allow-root"
+                    //sh "npm run build --unsafe-perm=true --allow-root"
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
-                    sh "which ssh-agent"
+                    
                     sshagent(['${SERVER_CREDENTIALSID}']) {
                       sh "scp -o StrictHostKeyChecking=no -r build/* sapphirewhale@10.0.0.6:/var/www/html/"
                     }
