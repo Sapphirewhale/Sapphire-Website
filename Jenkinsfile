@@ -31,7 +31,8 @@ pipeline {
                 dir("sapphire-website"){
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
-                    sshagent(["${SERVER_CREDENTIALSID}"]) {
+                    sh "which ssh-agent"
+                    sshagent(['${SERVER_CREDENTIALSID}']) {
                       sh "scp -o StrictHostKeyChecking=no -r build/* sapphirewhale@10.0.0.6:/var/www/html/"
                     }
                 }
