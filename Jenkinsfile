@@ -20,9 +20,9 @@ pipeline {
             steps {
                 dir("sapphire-website"){
                     echo 'Compiling...'
-                    //sh "npm install --unsafe-perm=true --allow-root"
+                    sh "npm install --unsafe-perm=true --allow-root"
                     echo 'Building...'
-                    //sh "npm run build --unsafe-perm=true --allow-root"
+                    sh "npm run build --unsafe-perm=true --allow-root"
                 }
             }
         }
@@ -32,9 +32,9 @@ pipeline {
                     echo 'Copying the app to apache directory'
                     //sh "chmod +x -R /var/www/" 
                     
-                    sshagent(["${SERVER_CREDENTIALSID}"]) {
+                    /*sshagent(["${SERVER_CREDENTIALSID}"]) {
                       sh "scp -o StrictHostKeyChecking=no -r build/* sapphirewhale@10.0.0.6:/var/www/html/"
-                    }
+                    }*/
                 }
             }
         }
